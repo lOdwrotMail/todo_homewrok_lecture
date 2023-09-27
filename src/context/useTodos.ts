@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getTodos } from '../api/todos';
 import { Todo } from '../types/Todo';
+import { TodoService } from '../api/todos';
 
 export const useTodos = (userId: number) => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -19,7 +19,7 @@ export const useTodos = (userId: number) => {
   };
 
   useEffect(() => {
-    getTodos(userId)
+    TodoService.getTodos(userId)
       .then(setTodos)
       .finally(() => setIsLoading(false));
   }, [userId]);

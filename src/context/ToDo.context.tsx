@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTodos } from './useTodos';
+import { Todo } from '../types/Todo';
 
+type TemporaryTodo = Omit<Todo, 'id'> | null;
 type TodoContextValues = Omit<ReturnType<typeof useTodos>, 'isLoading'> & {
   userId: number;
+  temporaryTodo: TemporaryTodo
+  setTemporaryTodo: (todo: Omit<Todo, 'id'> | null) => void;
 };
 
 const TodoContext = React.createContext<TodoContextValues | undefined>(
@@ -16,13 +20,19 @@ type TodosProviderProps = {
 
 export const TodosProvider = ({ children, userId }: TodosProviderProps) => {
   const { isLoading, ...rest } = useTodos(userId);
+  const [temporaryTodo, setTemporaryTodo] = useState<TemporaryTodo>(
+    null,
+  );
 
   if (isLoading) {
     return <div>Loadding...</div>;
   }
 
   return (
-    <TodoContext.Provider value={{ ...rest, userId }}>
+    <TodoContext.Provider value={{
+      ...rest, userId, temporaryTodo, setTemporaryTodo,
+    }}
+    >
       {children}
     </TodoContext.Provider>
   );
