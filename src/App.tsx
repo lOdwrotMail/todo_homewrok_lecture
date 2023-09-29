@@ -4,6 +4,7 @@ import { UserWarning } from './UserWarning';
 import { ToDoList } from './components/ToDoList/ToDoList';
 import { TodosProvider } from './context/ToDo.context';
 import { AddTodoForm } from './components/AddTodoForm/AddTodoForm';
+// eslint-disable-next-line max-len
 import { ClearCompletedTodosButton } from './components/ClearCompletedTodosButton/ClearCompletedTodosButton';
 
 const USER_ID = 11602;
@@ -19,7 +20,6 @@ export const App: React.FC = () => {
         <h1 className="todoapp__title">todos</h1>
 
         <div className="todoapp__content">
-
           <AddTodoForm />
           <ToDoList />
 

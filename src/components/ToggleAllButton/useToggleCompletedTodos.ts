@@ -14,7 +14,9 @@ export const useToggleCompletedTodos = () => {
     setProcessedTodoIds(completedTodos.map((v) => v.id));
 
     Promise.allSettled(
-      completedTodos.map((v) => TodoService.editTodo({ ...v, completed: false })),
+      completedTodos.map((v) => {
+        return TodoService.editTodo({ ...v, completed: false });
+      }),
     )
       .then((result) => {
         result.forEach((v) => {
