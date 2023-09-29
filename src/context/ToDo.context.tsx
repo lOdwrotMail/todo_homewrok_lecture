@@ -5,8 +5,10 @@ import { Todo } from '../types/Todo';
 type TemporaryTodo = Omit<Todo, 'id'> | null;
 type TodoContextValues = Omit<ReturnType<typeof useTodos>, 'isLoading'> & {
   userId: number;
-  temporaryTodo: TemporaryTodo
+  temporaryTodo: TemporaryTodo;
   setTemporaryTodo: (todo: Omit<Todo, 'id'> | null) => void;
+  processedTodoIds: number[];
+  setProcessedTodoIds: (ids: number[]) => void;
 };
 
 const TodoContext = React.createContext<TodoContextValues | undefined>(
@@ -20,18 +22,23 @@ type TodosProviderProps = {
 
 export const TodosProvider = ({ children, userId }: TodosProviderProps) => {
   const { isLoading, ...rest } = useTodos(userId);
-  const [temporaryTodo, setTemporaryTodo] = useState<TemporaryTodo>(
-    null,
-  );
+  const [processedTodoIds, setProcessedTodoIds] = useState<number[]>([]);
+  const [temporaryTodo, setTemporaryTodo] = useState<TemporaryTodo>(null);
 
   if (isLoading) {
     return <div>Loadding...</div>;
   }
 
   return (
-    <TodoContext.Provider value={{
-      ...rest, userId, temporaryTodo, setTemporaryTodo,
-    }}
+    <TodoContext.Provider
+      value={{
+        ...rest,
+        userId,
+        temporaryTodo,
+        setTemporaryTodo,
+        processedTodoIds,
+        setProcessedTodoIds,
+      }}
     >
       {children}
     </TodoContext.Provider>

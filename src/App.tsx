@@ -4,6 +4,7 @@ import { UserWarning } from './UserWarning';
 import { ToDoList } from './components/ToDoList/ToDoList';
 import { TodosProvider } from './context/ToDo.context';
 import { AddTodoForm } from './components/AddTodoForm/AddTodoForm';
+import { ClearCompletedTodosButton } from './components/ClearCompletedTodosButton/ClearCompletedTodosButton';
 
 const USER_ID = 11602;
 
@@ -55,14 +56,7 @@ export const App: React.FC = () => {
               </a>
             </nav>
 
-            {/* don't show this button if there are no completed todos */}
-            <button
-              type="button"
-              className="todoapp__clear-completed"
-              data-cy="ClearCompletedButton"
-            >
-              Clear completed
-            </button>
+            <ClearCompletedTodosButton />
           </footer>
         </div>
 

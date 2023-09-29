@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAddTodo } from './useAddTodo';
+import { ToggleAllButton } from '../ToggleAllButton/ToggleAllButton';
 
 export const AddTodoForm = () => {
   const { addTodo } = useAddTodo();
@@ -7,14 +8,7 @@ export const AddTodoForm = () => {
 
   return (
     <header className="todoapp__header">
-      {/* this buttons is active only if there are some active todos */}
-      <button
-        type="button"
-        className="todoapp__toggle-all active"
-        data-cy="ToggleAllButton"
-      />
-
-      {/* Add a todo on form submit */}
+      <ToggleAllButton />
       <form
         onSubmit={(e) => {
           e.preventDefault();
